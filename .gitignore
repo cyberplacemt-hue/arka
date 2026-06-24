@@ -1,0 +1,6 @@
+serve.py
+KP-ARKA.pdf.txt
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
