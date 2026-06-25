@@ -105,11 +105,11 @@
   .device{
     position:relative;border-radius:20px;overflow:hidden;
     background:radial-gradient(120% 120% at 80% 0%,#eef5f9 0%,#e4eef4 45%,#dbe7ee 100%);
-    border:1px solid var(--line);min-height:480px;
-    display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--line);
     box-shadow:var(--shadow);
+    aspect-ratio:4/3;
   }
-  .device img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+  .device img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
   .device-ru{
     position:absolute;bottom:20px;right:20px;
     background:var(--ink);color:#fff;border-radius:10px;
@@ -367,7 +367,7 @@
   @media(max-width:980px){
     body{font-size:16px}
     .hero-grid{grid-template-columns:1fr;gap:40px}
-    .device{min-height:360px;order:-1}
+    .device{order:-1}
     .grid-4{grid-template-columns:repeat(2,1fr)}
     .grid-3,.tender-grid{grid-template-columns:1fr}
     .grid-2,.docs,.contact-grid{grid-template-columns:1fr}
