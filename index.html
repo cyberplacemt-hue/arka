@@ -841,7 +841,11 @@
         </ul>
       </div>
 
-      <form id="leadForm" novalidate>
+      <form id="leadForm" action="https://formsubmit.co/postavka.mos@yandex.ru" method="POST" novalidate>
+        <input type="hidden" name="_subject" value="Заявка с сайта — аппарат «АРКА»">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="text" name="_honey" style="display:none">
         <div class="row-2">
           <div>
             <label for="f-name">Имя</label>
@@ -911,15 +915,36 @@
 </footer>
 
 <script>
-  // Минимальная обработка формы — без бэкенда, демо-режим
-  document.getElementById('leadForm').addEventListener('submit', function(e){
+  var leadForm = document.getElementById('leadForm');
+  leadForm.addEventListener('submit', function(e){
     e.preventDefault();
+    var btn = leadForm.querySelector('button[type="submit"]');
     var ok = document.getElementById('formOk');
-    ok.classList.add('show');
-    this.reset();
-    setTimeout(function(){ ok.classList.remove('show'); }, 6000);
+    btn.disabled = true;
+    btn.textContent = 'Отправляем…';
+    var formData = new FormData(leadForm);
+    fetch(leadForm.action, {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    }).then(function(r){
+      if (r.ok) {
+        ok.classList.add('show');
+        leadForm.reset();
+        btn.textContent = 'Отправить заявку';
+        btn.disabled = false;
+        setTimeout(function(){ ok.classList.remove('show'); }, 8000);
+      } else {
+        throw new Error('submit failed');
+      }
+    }).catch(function(){
+      btn.textContent = 'Отправить заявку';
+      btn.disabled = false;
+      ok.textContent = 'Не удалось отправить. Напишите нам на postavka.mos@yandex.ru или позвоните: 8 (916) 057-22-22.';
+      ok.classList.add('show');
+      setTimeout(function(){ ok.classList.remove('show'); }, 10000);
+    });
   });
-  // Бургер-меню
   var burger = document.getElementById('burger');
   var mobileNav = document.getElementById('mobileNav');
   burger.addEventListener('click', function(){
